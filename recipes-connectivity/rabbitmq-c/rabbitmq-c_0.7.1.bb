@@ -13,4 +13,6 @@ SRC_URI[sha256sum] = "23df349a7d157543e756acc67e47b217843ecbdafaefe3e4974073bb99
 
 DEPENDS = "openssl"
 
+EXTRA_OECONF = "--enable-tools"
+
 inherit autotools-brokensep pkgconfig
