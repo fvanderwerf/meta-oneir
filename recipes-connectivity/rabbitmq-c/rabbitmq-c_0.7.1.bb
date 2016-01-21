@@ -11,7 +11,7 @@ SRC_URI = "https://github.com/alanxz/rabbitmq-c/releases/download/v${PV}/rabbitm
 SRC_URI[md5sum] = "6216c8876299a5efc4ff5ff84dc636d8"
 SRC_URI[sha256sum] = "23df349a7d157543e756acc67e47b217843ecbdafaefe3e4974073bb99d8a26d"
 
-DEPENDS = "openssl"
+DEPENDS = "openssl popt"
 
 EXTRA_OECONF = "--enable-tools"
 
