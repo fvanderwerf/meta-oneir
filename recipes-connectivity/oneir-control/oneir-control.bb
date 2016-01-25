@@ -7,6 +7,6 @@ SRC_URI = "git://github.com/fvanderwerf/oneir-control.git;protocol=git;rev=maste
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "json-c"
+DEPENDS = "json-c socat rabbitmq-c"
 
 inherit autotools pkgconfig
