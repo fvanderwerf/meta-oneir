@@ -9,6 +9,6 @@ S = "${WORKDIR}/git"
 
 DEPENDS = "json-c"
 
-RDEPENDS = "socat rabbitmq-c"
+RDEPENDS_${pn} = "socat rabbitmq-c"
 
 inherit autotools pkgconfig
