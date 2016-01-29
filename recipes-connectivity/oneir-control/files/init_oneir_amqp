@@ -1,0 +1,53 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:         oneir_amqp
+# Required-Start:	$remote_fs $syslog $networking
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop:		1
+# Short-Description:	Relays messages from AMQP to oneird
+### END INIT INFO
+#
+# Do not configure this file. Edit /etc/default/oneir_amqp instead!
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/bin
+DAEMON=/usr/bin/amqp_oneir.sh
+NAME=oneir_amqp
+DESC="OneIR AMQP bridge"
+
+AMQP_URL="amqp://guest:guest@127.0.0.1"
+QUEUE_NAME=oneir
+ONEIR_SOCKET=/var/run/oneird.sock
+
+set -e
+
+test ! -r /etc/default/oneir_amqp || . /etc/default/oneir_amqp
+test -x "$DAEMON" || exit 0
+
+case "$1" in
+  start)
+    echo -n "Starting $DESC: "
+    start-stop-daemon -S -b -x "$DAEMON" -- "$AMQP_URL" "$QUEUE_NAME" "$ONEIR_SOCKET"
+    echo "$NAME."
+    ;;
+  stop)
+    echo -n "Stopping $DESC: "
+    start-stop-daemon -K -x "$DAEMON" 
+    echo "$NAME."
+    ;;
+  restart|force-reload)
+    echo -n "Restarting $DESC: "
+    start-stop-daemon -K -x "$DAEMON" 
+    sleep 1
+    start-stop-daemon -S -b -x "$DAEMON" -- "$AMQP_URL" "$QUEUE_NAME" "$ONEIR_SOCKET"
+    echo "$NAME." 
+    ;;
+  *)
+    N=/etc/init.d/$NAME
+    echo "Usage: $N {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0;
