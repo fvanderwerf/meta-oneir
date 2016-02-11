@@ -1,5 +1,5 @@
 
-include recipes-core/images/core-image-minimal.bb
+include recipes-core/images/core-image-base.bb
 
 IMAGE_INSTALL += " \
     nfs-utils-client \
